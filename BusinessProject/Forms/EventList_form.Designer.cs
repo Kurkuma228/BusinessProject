@@ -156,7 +156,7 @@
         private System.Windows.Forms.Button AddEvent_btn;
         private System.Windows.Forms.Button Filter_btn;
         private System.Windows.Forms.Button AddReport_btn;
-        private System.Windows.Forms.DataGridView EventList_dgv;
+        public System.Windows.Forms.DataGridView EventList_dgv;
         private System.Windows.Forms.Label Info_lbl;
         private System.Windows.Forms.PictureBox Logo_pb;
         private System.Windows.Forms.Label App_lbl;

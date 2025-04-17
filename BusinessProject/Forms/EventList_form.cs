@@ -23,7 +23,7 @@ namespace BusinessProject
             LoadData();
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             try
             {
@@ -61,7 +61,7 @@ namespace BusinessProject
             formAdd.ShowDialog();
         }
 
-        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        public void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
@@ -78,7 +78,7 @@ namespace BusinessProject
                 }
             }
         }
-        private void RefreshDataGridView()
+        public void RefreshDataGridView()
         {
             using (var context = new BusinessContext())
             {
