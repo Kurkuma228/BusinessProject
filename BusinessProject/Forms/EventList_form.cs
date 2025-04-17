@@ -1,4 +1,6 @@
 ﻿using BusinessProject;
+using OfficeOpenXml.Table;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +11,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+
 
 namespace BusinessProject
 {
@@ -37,8 +41,8 @@ namespace BusinessProject
                 {
                     EventList_dgv.Columns["Id"].Visible = false;
                     EventList_dgv.Columns["Participants"].Visible = false;
-                    EventList_dgv.Columns["Date"].DefaultCellStyle.Format = "dd.MM.yyyy";
                 }
+                RefreshDataGridView();
             }
             catch (Exception ex)
             {
@@ -96,6 +100,53 @@ namespace BusinessProject
                     EventList_dgv.Columns["Participants"].HeaderText = "Участники события";
                     EventList_dgv.Columns["Categories"].HeaderText = "Категория события";
                 }
+            }
+        }
+
+        private void AddReport_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                var meetings = (_bindingSource.DataSource as BindingList<Meeting>)?.Cast<Meeting>().ToList();
+
+                if (meetings == null || meetings.Count == 0)
+                {
+                    MessageBox.Show("Нет данных для создания отчета.");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files (*.xlsx)|*.xlsx",
+                    FileName = "Event_Report.xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("Events");
+
+                        var headerRow = worksheet.Cells[1, 1];
+                        worksheet.Cells[1, 1].LoadFromCollection(meetings, true, TableStyles.Medium9);
+
+                        worksheet.Cells[1, 1, 1, 5].Style.Font.Bold = true;
+
+                        using (var stream = File.Create(filePath))
+                        {
+                            package.SaveAs(stream);
+                        }
+
+                        MessageBox.Show($"Отчет успешно сохранен по пути: {filePath}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при создании отчета: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
