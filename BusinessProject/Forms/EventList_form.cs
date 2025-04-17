@@ -1,9 +1,11 @@
-﻿using System;
+﻿using BusinessProject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,7 +30,14 @@ namespace BusinessProject
                 using (var context = new BusinessContext())
                 {
                     var meetings = context.Meetings.ToList();
-                    _bindingSource.DataSource = meetings;
+                    var bindingList = new BindingList<Meeting>(meetings);
+                    _bindingSource.DataSource = bindingList;
+                }
+                if (EventList_dgv.Columns.Count > 0)
+                {
+                    EventList_dgv.Columns["Id"].Visible = false;
+                    EventList_dgv.Columns["Participants"].Visible = false;
+                    EventList_dgv.Columns["Date"].DefaultCellStyle.Format = "dd.MM.yyyy";
                 }
             }
             catch (Exception ex)
@@ -56,7 +65,7 @@ namespace BusinessProject
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                int eventId = Convert.ToInt32(EventList_dgv.Rows[e.RowIndex].Cells["EventId"].Value);
+                int eventId = Convert.ToInt32(EventList_dgv.Rows[e.RowIndex].Cells["Id"].Value);
                 string eventName = EventList_dgv.Rows[e.RowIndex].Cells["EventName"].Value?.ToString();
                 DateTime eventDate = Convert.ToDateTime(EventList_dgv.Rows[e.RowIndex].Cells["Date"].Value);
                 string eventParticipants = EventList_dgv.Rows[e.RowIndex].Cells["Participants"].Value?.ToString();
@@ -76,11 +85,12 @@ namespace BusinessProject
                 EventList_dgv.AutoGenerateColumns = true;
 
                 var meetings = context.Meetings.ToList();
-                EventList_dgv.DataSource = meetings;
+                var bindingList = new BindingList<Meeting>(meetings);
+                _bindingSource.DataSource = bindingList;
 
                 if (EventList_dgv.Columns.Count > 0)
                 {
-                    EventList_dgv.Columns["EventId"].HeaderText = "ID";
+                    EventList_dgv.Columns["Id"].HeaderText = "ID";
                     EventList_dgv.Columns["EventName"].HeaderText = "Название события";
                     EventList_dgv.Columns["Date"].HeaderText = "Дата и время события";
                     EventList_dgv.Columns["Participants"].HeaderText = "Участники события";

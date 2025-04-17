@@ -31,7 +31,7 @@
             this.App_lbl = new System.Windows.Forms.Label();
             this.Logo_pb = new System.Windows.Forms.PictureBox();
             this.Info_lbl = new System.Windows.Forms.Label();
-            this.FilterName_btn = new System.Windows.Forms.Button();
+            this.FilterCategory_btn = new System.Windows.Forms.Button();
             this.FilterDate_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Logo_pb)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +48,7 @@
             // 
             // Logo_pb
             // 
-            this.Logo_pb.Image = global::   BusinessProject.Properties.Resources.Screenshot_2025_04_04_235622;
+            this.Logo_pb.Image = global::BusinessProject.Properties.Resources.Screenshot_2025_04_04_235622;
             this.Logo_pb.Location = new System.Drawing.Point(287, 56);
             this.Logo_pb.Name = "Logo_pb";
             this.Logo_pb.Size = new System.Drawing.Size(38, 43);
@@ -66,18 +66,18 @@
             this.Info_lbl.TabIndex = 14;
             this.Info_lbl.Text = "Сортировка";
             // 
-            // FilterName_btn
+            // FilterCategory_btn
             // 
-            this.FilterName_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(229)))));
-            this.FilterName_btn.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.FilterName_btn.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.FilterName_btn.Location = new System.Drawing.Point(287, 163);
-            this.FilterName_btn.Name = "FilterName_btn";
-            this.FilterName_btn.Size = new System.Drawing.Size(211, 35);
-            this.FilterName_btn.TabIndex = 16;
-            this.FilterName_btn.Text = "Название";
-            this.FilterName_btn.UseVisualStyleBackColor = false;
-            this.FilterName_btn.Click += new System.EventHandler(this.FilterName_btn_Click);
+            this.FilterCategory_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(229)))));
+            this.FilterCategory_btn.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.FilterCategory_btn.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.FilterCategory_btn.Location = new System.Drawing.Point(287, 163);
+            this.FilterCategory_btn.Name = "FilterCategory_btn";
+            this.FilterCategory_btn.Size = new System.Drawing.Size(211, 35);
+            this.FilterCategory_btn.TabIndex = 16;
+            this.FilterCategory_btn.Text = "Категория";
+            this.FilterCategory_btn.UseVisualStyleBackColor = false;
+            this.FilterCategory_btn.Click += new System.EventHandler(this.FilterCategory_btn_Click);
             // 
             // FilterDate_btn
             // 
@@ -90,6 +90,7 @@
             this.FilterDate_btn.TabIndex = 17;
             this.FilterDate_btn.Text = "Дата";
             this.FilterDate_btn.UseVisualStyleBackColor = false;
+            this.FilterDate_btn.Click += new System.EventHandler(this.FilterDate_btn_Click);
             // 
             // FilterEvent_form
             // 
@@ -98,7 +99,7 @@
             this.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.FilterDate_btn);
-            this.Controls.Add(this.FilterName_btn);
+            this.Controls.Add(this.FilterCategory_btn);
             this.Controls.Add(this.Info_lbl);
             this.Controls.Add(this.Logo_pb);
             this.Controls.Add(this.App_lbl);
@@ -116,7 +117,7 @@
         private System.Windows.Forms.Label App_lbl;
         private System.Windows.Forms.PictureBox Logo_pb;
         private System.Windows.Forms.Label Info_lbl;
-        private System.Windows.Forms.Button FilterName_btn;
+        private System.Windows.Forms.Button FilterCategory_btn;
         private System.Windows.Forms.Button FilterDate_btn;
     }
 }
