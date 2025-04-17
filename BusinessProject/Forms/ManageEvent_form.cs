@@ -22,12 +22,16 @@ namespace BusinessProject
             EventName_tb.Text = eventName.ToString();
             Date_dtp.Value = eventDate;
             this.refreshCallBack = refreshCallback;
-            EventParticipants_tb.Text = eventParticipants.ToString();
             Date_dtp.MinDate = DateTime.Today;
             Date_dtp.Format = DateTimePickerFormat.Custom;
             Date_dtp.CustomFormat = "dd.MM.yyyy HH:mm";
             Categories_cb.DataSource = Enum.GetValues(typeof(Categories));
             Categories_cb.SelectedItem = eventCategory;
+            if (!string.IsNullOrWhiteSpace(eventParticipants))
+            {
+                var participantsList = eventParticipants.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                Participants_lb.DataSource = participantsList;
+            }
         }
         private void DeleteButton_Click(object sender, EventArgs e)
         {
@@ -107,9 +111,10 @@ namespace BusinessProject
         {
             string eventName = EventName_tb.Text;
             DateTime eventDate = Date_dtp.Value;
-            string participants = EventParticipants_tb.Text;
+            string participants = string.Join(", ", Participants_lb.Items.Cast<string>());
             Categories category = (Categories)Categories_cb.SelectedItem;
             EditEvent(eventName, eventDate, participants, category);
         }
+
     }
 }
