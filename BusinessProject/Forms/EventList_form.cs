@@ -19,9 +19,11 @@ namespace BusinessProject
     public partial class EventList_form : Form
     {
         private BindingSource _bindingSource;
-        public EventList_form()
+        private readonly BusinessContext _context;
+        public EventList_form(BusinessContext context = null)
         {
             InitializeComponent();
+            _context = context ?? new BusinessContext();
             _bindingSource = new BindingSource();
             EventList_dgv.DataSource = _bindingSource;
             LoadData();

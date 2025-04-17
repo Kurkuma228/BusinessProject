@@ -21,26 +21,26 @@ namespace BusinessTestProject
             _mockContext = new Mock<BusinessContext>();
 
             _mockMeetings = new List<Meeting>
+        {
+            new Meeting
             {
-                new Meeting
-                {
-                    Id = 1,
-                    EventName = "Встреча команды",
-                    Date = new DateTime(2025, 04, 15),
-                    Participants = "Камиль, Сергей",
-                    Categories = Categories.Неофициальный
-                },
-                new Meeting
-                {
-                    Id = 2,
-                    EventName = "Встреча с клиентом",
-                    Date = new DateTime(2025, 04, 26),
-                    Participants = "Сергей, Радмир",
-                    Categories = Categories.Официальный
-                }
-            };
+                Id = 1,
+                EventName = "Встреча команды",
+                Date = new DateTime(2025, 04, 15),
+                Participants = "Камиль, Сергей",
+                Categories = Categories.Неофициальный
+            },
+            new Meeting
+            {
+                Id = 2,
+                EventName = "Встреча с клиентом",
+                Date = new DateTime(2025, 04, 26),
+                Participants = "Сергей, Радмир",
+                Categories = Categories.Официальный
+            }
+        };
 
-            var mockDbSet = MockDbSet(_mockMeetings);
+            var mockDbSet = MockHelper.MockDbSet(_mockMeetings);
             _mockContext.Setup(c => c.Meetings).Returns(mockDbSet.Object);
         }
 
@@ -48,26 +48,26 @@ namespace BusinessTestProject
         public void LoadData_ShouldLoadMeetingsIntoDataGridView()
         {
             // Arrange
-            var form = new EventList_form();
+            var form = new EventList_form(_mockContext.Object);
             var dataGridView = new DataGridView();
-            form.EventList_dgv = dataGridView; 
+            form.EventList_dgv = dataGridView;
 
             // Act
             form.LoadData();
 
             // Assert
-            Assert.AreEqual(_mockMeetings.Count, dataGridView.Rows.Count - 1); 
+            Assert.AreEqual(_mockMeetings.Count, dataGridView.Rows.Count - 1);
             Assert.AreEqual("Встреча команды", dataGridView.Rows[0].Cells["EventName"].Value);
-            Assert.AreEqual("15.04.2025", dataGridView.Rows[0].Cells["Date"].Value);
+            Assert.AreEqual(new DateTime(2025, 04, 15).ToString("dd.MM.yyyy"), dataGridView.Rows[0].Cells["Date"].Value);
         }
 
         [TestMethod]
         public void RefreshDataGridView_ShouldUpdateDataGridViewColumns()
         {
             // Arrange
-            var form = new EventList_form();
+            var form = new EventList_form(_mockContext.Object);
             var dataGridView = new DataGridView();
-            form.EventList_dgv = dataGridView; 
+            form.EventList_dgv = dataGridView;
 
             // Act
             form.RefreshDataGridView();
@@ -82,6 +82,9 @@ namespace BusinessTestProject
             Assert.AreEqual("ID", dataGridView.Columns["Id"].HeaderText);
             Assert.AreEqual("Название события", dataGridView.Columns["EventName"].HeaderText);
             Assert.AreEqual("Дата и время события", dataGridView.Columns["Date"].HeaderText);
+
+            Assert.AreEqual(_mockMeetings.Count, dataGridView.Rows.Count - 1);
+            Assert.AreEqual("Встреча команды", dataGridView.Rows[0].Cells["EventName"].Value);
         }
 
         [TestMethod]
@@ -90,7 +93,7 @@ namespace BusinessTestProject
             // Arrange
             var form = new EventList_form();
             var dataGridView = new DataGridView();
-            form.EventList_dgv = dataGridView; 
+            form.EventList_dgv = dataGridView;
 
             dataGridView.Columns.Add("Id", "ID");
             dataGridView.Columns.Add("EventName", "Event Name");
@@ -100,11 +103,15 @@ namespace BusinessTestProject
 
             dataGridView.Rows.Add(1, "Встреча команды", "15.04.2025", "Камиль, Сергей", Categories.Неофициальный.ToString());
 
+            var mockForm = new Mock<ManageEvent_form>(1, "Встреча команды", new DateTime(2025, 04, 15), "Камиль, Сергей", Categories.Неофициальный, form.RefreshDataGridView);
+
             // Act
             form.DataGridView1_CellDoubleClick(null, new DataGridViewCellEventArgs(0, 0));
 
             // Assert
+            mockForm.Verify(f => f.ShowDialog(form), Times.Once);
         }
+
 
         private Mock<DbSet<T>> MockDbSet<T>(IEnumerable<T> data) where T : class
         {
