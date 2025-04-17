@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace BusinessProject
 {
-    class BusinessContext : DbContext
+    public class BusinessContext : DbContext
     {
         public BusinessContext(): base("DBConnection") { }
         public DbSet<Meeting> Meetings { get; set; }
