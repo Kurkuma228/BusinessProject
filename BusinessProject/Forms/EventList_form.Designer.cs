@@ -78,6 +78,7 @@
             this.AddReport_btn.TabIndex = 2;
             this.AddReport_btn.Text = "Отчет";
             this.AddReport_btn.UseVisualStyleBackColor = false;
+            this.AddReport_btn.Click += new System.EventHandler(this.AddReport_btn_Click);
             // 
             // EventList_dgv
             // 
