@@ -41,7 +41,6 @@ namespace BusinessProject
                 {
                     EventList_dgv.Columns["Id"].Visible = false;
                     EventList_dgv.Columns["Participants"].Visible = false;
-                    EventList_dgv.Columns["Date"].DefaultCellStyle.Format = "dd.MM.yyyy";
                 }
                 RefreshDataGridView();
             }

@@ -24,6 +24,7 @@ namespace BusinessProject
             this.refreshCallBack = refreshCallback;
             EventParticipants_tb.Text = eventParticipants.ToString();
             Date_dtp.MinDate = DateTime.Today;
+            Date_dtp.Format = DateTimePickerFormat.Custom;
             Date_dtp.CustomFormat = "dd.MM.yyyy HH:mm";
             Categories_cb.DataSource = Enum.GetValues(typeof(Categories));
             Categories_cb.SelectedItem = eventCategory;
