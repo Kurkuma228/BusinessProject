@@ -38,6 +38,7 @@
             this.Logo_pb = new System.Windows.Forms.PictureBox();
             this.Categories_cb = new System.Windows.Forms.ComboBox();
             this.Date_dtp = new System.Windows.Forms.DateTimePicker();
+            this.Category_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Logo_pb)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,12 +142,22 @@
             this.Date_dtp.Size = new System.Drawing.Size(220, 22);
             this.Date_dtp.TabIndex = 11;
             // 
+            // Category_lbl
+            // 
+            this.Category_lbl.AutoSize = true;
+            this.Category_lbl.Location = new System.Drawing.Point(114, 199);
+            this.Category_lbl.Name = "Category_lbl";
+            this.Category_lbl.Size = new System.Drawing.Size(75, 16);
+            this.Category_lbl.TabIndex = 12;
+            this.Category_lbl.Text = "Категория";
+            // 
             // AddEvent_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(443, 413);
+            this.Controls.Add(this.Category_lbl);
             this.Controls.Add(this.Date_dtp);
             this.Controls.Add(this.Categories_cb);
             this.Controls.Add(this.Participants_lbl);
@@ -178,5 +189,6 @@
         private System.Windows.Forms.Label Participants_lbl;
         private System.Windows.Forms.ComboBox Categories_cb;
         private System.Windows.Forms.DateTimePicker Date_dtp;
+        private System.Windows.Forms.Label Category_lbl;
     }
 }
